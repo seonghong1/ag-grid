@@ -31,7 +31,11 @@ import { GridApi } from 'ag-grid-community';
 let gridApi: GridApi | null = null;
 
 const columnDefs = [
-  { headerName: '명세일자', field: 'TRANS_DATE', sortable: true },
+  {
+    headerName: '명세일자',
+    field: 'TRANS_DATE',
+    sortable: true,
+  },
   { headerName: '명세번호', field: 'TRANS_SEQ', sortable: true },
   { headerName: '매입일자', field: 'WORK_DATE' },
   { headerName: '매입구분', field: 'WORK_TYPE_NM' },

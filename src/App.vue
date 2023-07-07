@@ -1,5 +1,5 @@
 <template>
-  <Test2Page />
+  <Test3Page />
 </template>
 
 <script setup lang="ts">
@@ -8,7 +8,7 @@
 // import Test5Page from './components/Test5Page.vue';
 // import Test6Page from './components/Test6Page.vue';
 // import Test7Page from './components/Test7Page.vue';
-import Test2Page from './components/Test2Page.vue';
+import Test3Page from './components/Test3Page.vue';
 </script>
 
 <style scoped></style>
