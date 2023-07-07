@@ -6,8 +6,7 @@
       :columnDefs="columnDefs"
       :rowData="rowData"
       :defaultColDef="defaultColDef"
-      :groupIncludeFooter="true"
-      :groupIncludeTotalFooter="true"
+      :pinnedBottomRowData="pinnedBottomRowData"
     />
   </div>
 </template>
@@ -28,12 +27,7 @@ LicenseManager.setLicenseKey(KEY);
 
 const columnDefs = [
   { headerName: '명세일자', field: 'TRANS_DATE', filter: 'agSetColumnFilter' },
-  {
-    headerName: '명세번호',
-    field: 'TRANS_SEQ',
-    filter: 'agSetColumnFilter',
-    aggFunc: 'sum',
-  },
+
   { headerName: '매입일자', field: 'WORK_DATE', filter: 'agSetColumnFilter' },
   {
     headerName: '매입구분',
@@ -41,6 +35,12 @@ const columnDefs = [
     filter: 'agSetColumnFilter',
   },
   { headerName: '창고이름', field: 'STOCK_NM', filter: 'agSetColumnFilter' },
+  {
+    headerName: '명세번호',
+    field: 'TRANS_SEQ',
+    filter: 'agSetColumnFilter',
+    aggFunc: 'sum',
+  },
 ];
 
 const defaultColDef = {
@@ -51,6 +51,18 @@ const defaultColDef = {
 };
 
 const rowData = dummy_data;
+const createData = (prefix: string) => {
+  const result = [
+    {
+      TRANS_DATE: prefix,
+      TRANS_SEQ: dummy_data.length,
+    },
+  ];
+
+  return result;
+};
+
+const pinnedBottomRowData = createData('합계');
 
 onMounted(() => {});
 </script>

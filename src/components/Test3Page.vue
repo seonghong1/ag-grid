@@ -25,7 +25,7 @@ const columnDefs = [
     field: 'WORK_DATE',
     rowSpan: rowSpan,
     cellClassRules: {
-      'cell-span': (params) =>
+      'cell-span': (params: any) =>
         params.data.WORK_DATE === '20230602' && params.node.rowIndex === 0,
     },
   },
