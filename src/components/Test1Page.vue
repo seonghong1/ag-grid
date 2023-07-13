@@ -15,14 +15,11 @@ import { dummy_data } from '../../dummy.js';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { GridOptions } from 'ag-grid-community';
-import { GridApi } from 'ag-grid-community';
 import { ColDef } from 'ag-grid-community';
 import { LicenseManager } from 'ag-grid-enterprise';
 import { KEY } from '../../key';
 
 LicenseManager.setLicenseKey(KEY);
-
-let gridApi: GridApi | null = null;
 
 const columnDefs: ColDef[] = [
   {
@@ -42,14 +39,9 @@ const columnDefs: ColDef[] = [
 
 const rowData = dummy_data;
 
-const onGridReady = (params: any) => {
-  gridApi = params.api;
-};
-
 const gridOptions: GridOptions = {
   columnDefs: columnDefs,
   rowData: rowData,
-  onGridReady: onGridReady,
   showOpenedGroup: true,
   groupDisplayType: 'singleColumn',
   autoGroupColumnDef: {

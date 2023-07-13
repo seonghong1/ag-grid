@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { AgGridVue } from 'ag-grid-vue3';
-import { dummy_data } from '../../dummy.js';
+import { dummy_data } from '../../dummy.ts';
 
 import {
   GridOptions,
@@ -22,13 +22,33 @@ import {
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
+const countByDate = {};
+
+dummy_data.forEach(({ TRANS_DATE }, index) => {
+  if (!countByDate[TRANS_DATE]) {
+    countByDate[TRANS_DATE] = {
+      data: TRANS_DATE,
+      count: 0,
+      startIndex: index,
+    };
+  }
+  countByDate[TRANS_DATE].count++;
+});
+
 const columnDefs: ColDef[] = [
   {
     headerName: '명세일자',
     field: 'TRANS_DATE',
     rowSpan: rowSpan,
     cellClassRules: {
-      'cell-span': (params: CellClassParams) => params.node.rowIndex === 0,
+      'cell-span': (params: CellClassParams) => {
+        const data = params.data.TRANS_DATE;
+
+        return (
+          data === countByDate[data].data &&
+          params.node?.rowIndex === countByDate[data].startIndex
+        );
+      },
     },
   },
   { headerName: '명세번호', field: 'TRANS_SEQ' },
@@ -48,29 +68,21 @@ const gridOptions: GridOptions = {
   suppressRowTransform: true,
 };
 
-const countByDate = {};
-
-dummy_data.forEach((item, index) => {
-  const { TRANS_DATE } = item;
-  if (!countByDate[TRANS_DATE]) {
-    countByDate[TRANS_DATE] = {
-      count: 0,
-      startIndex: index,
-    };
-  }
-  countByDate[TRANS_DATE].count++;
-});
-
 console.log(countByDate);
 
 function rowSpan(params: RowSpanParams) {
-  // if (params.node?.rowIndex === 0) {
-  //   return 34;
-  // }
+  const data = params.data.TRANS_DATE;
 
-  console.log(params.node);
+  console.log(params.node?.rowIndex);
 
-  return 1;
+  // console.log(data);
+  // console.log(countByDate[data]);
+  if (
+    data === countByDate[data].data &&
+    params.node?.rowIndex === countByDate[data].startIndex
+  ) {
+    return countByDate[data].count;
+  }
 }
 </script>
 
