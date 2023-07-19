@@ -6,9 +6,9 @@
 
 <script setup lang="ts">
 const props: any = defineProps({});
-
+const currentValue = props.params.value;
 const buttonClicked = () => {
-  console.log('first');
+  console.log("first");
   console.log(props.params);
 };
 </script>

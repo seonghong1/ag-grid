@@ -10,35 +10,37 @@
 </template>
 
 <script setup lang="ts">
-import { AgGridVue } from 'ag-grid-vue3';
-import 'ag-grid-enterprise';
-import { LicenseManager } from 'ag-grid-enterprise';
+import { AgGridVue } from "ag-grid-vue3";
+import "ag-grid-enterprise";
+import { LicenseManager } from "ag-grid-enterprise";
 
-import { dummy_data } from '../../dummy';
-import { KEY } from '../../key';
+import { dummy_data } from "../../dummy";
+import { KEY } from "../../key";
 
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
-import TotalValueRenderer from '../renderer/TotalValueRenderer.vue';
+import TotalValueRenderer from "../renderer/TotalValueRenderer.vue";
+import CellSpanRenderer from "../renderer/CellSpanRenderer.vue";
 
 LicenseManager.setLicenseKey(KEY);
-
+//cellRenderer 해당 컬럼 셀의 데이터를 컴포넌트로 ex) button, input
 const columnDefs = [
   {
-    headerName: '명세일자',
-    field: 'TRANS_DATE',
+    headerName: "명세일자",
+    field: "TRANS_DATE",
+    cellRenderer: CellSpanRenderer,
   },
-  { headerName: '명세번호', field: 'TRANS_SEQ' },
-  { headerName: '매입일자', field: 'WORK_DATE' },
-  { headerName: '매입구분', field: 'WORK_TYPE_NM' },
+  { headerName: "명세번호", field: "TRANS_SEQ" },
+  { headerName: "매입일자", field: "WORK_DATE" },
+  { headerName: "매입구분", field: "WORK_TYPE_NM" },
   {
-    headerName: '창고이름',
-    field: 'STOCK_NM',
+    headerName: "창고이름",
+    // field: 'STOCK_NM',
     cellRenderer: TotalValueRenderer,
   },
-  { headerName: '창고이름', field: 'STOCK_NM' },
-  { headerName: '창고이름', field: 'STOCK_NM' },
+  { headerName: "창고이름", field: "STOCK_NM" },
+  { headerName: "창고이름", field: "STOCK_NM" },
 ];
 
 const rowData = dummy_data;

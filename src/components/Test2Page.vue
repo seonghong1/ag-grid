@@ -20,26 +20,26 @@
 </template>
 
 <script setup lang="ts">
-import { AgGridVue } from 'ag-grid-vue3';
-import { dummy_data } from '../../dummy.js';
+import { AgGridVue } from "ag-grid-vue3";
+import { dummy_data } from "../../dummy.js";
 
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { GridOptions } from 'ag-grid-community';
-import { GridApi } from 'ag-grid-community';
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import { GridOptions } from "ag-grid-community";
+import { GridApi } from "ag-grid-community";
 
 let gridApi: GridApi | null = null;
 
 const columnDefs = [
   {
-    headerName: '명세일자',
-    field: 'TRANS_DATE',
+    headerName: "명세일자",
+    field: "TRANS_DATE",
     sortable: true,
   },
-  { headerName: '명세번호', field: 'TRANS_SEQ', sortable: true },
-  { headerName: '매입일자', field: 'WORK_DATE' },
-  { headerName: '매입구분', field: 'WORK_TYPE_NM' },
-  { headerName: '창고이름', field: 'STOCK_NM' },
+  { headerName: "명세번호", field: "TRANS_SEQ", sortable: true },
+  { headerName: "매입일자", field: "WORK_DATE" },
+  { headerName: "매입구분", field: "WORK_TYPE_NM" },
+  { headerName: "창고이름", field: "STOCK_NM" },
 ];
 
 const rowData = dummy_data;
@@ -51,8 +51,11 @@ const onGridReady = (params: any) => {
 const gridOptions: GridOptions = {
   columnDefs: columnDefs,
   rowData: rowData,
+  // 페이징기능
   pagination: true,
+  // 페이지당 보여줄 rowdata
   paginationPageSize: 10,
+  // 그리드를 동적으로 변화하기 위한 옵션 value
   onGridReady: onGridReady,
 };
 

@@ -24,33 +24,32 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import { GridReadyEvent } from "ag-grid-community";
 
 const countByDate = {};
-function isSpanrow() {
-  let isSpanrowItem = false;
-  console.log();
-}
+
 dummy_data.forEach(({ TRANS_DATE }, index) => {
   if (!countByDate[TRANS_DATE]) {
     countByDate[TRANS_DATE] = {
       data: TRANS_DATE,
-      currentIndex: -1,
       count: 0,
       startIndex: index,
     };
   }
+  console.log(countByDate[TRANS_DATE], countByDate[TRANS_DATE].count);
   countByDate[TRANS_DATE].count++;
-  countByDate[TRANS_DATE].currentIndex += 1;
-  // console.log(countByDate[TRANS_DATE], countByDate[TRANS_DATE].count);
 });
 
 const columnDefs: ColDef[] = [
   {
     headerName: "명세일자",
     field: "TRANS_DATE",
-    rowSpan,
+    rowSpan: grid.forEachReow,
     cellClassRules: {
       "cell-span": (params: CellClassParams) => {
         const TRANS_DATE = params.data.TRANS_DATE;
-        return params.node?.rowIndex === countByDate[TRANS_DATE].startIndex;
+
+        return (
+          TRANS_DATE === countByDate[TRANS_DATE].data &&
+          params.node?.rowIndex === countByDate[TRANS_DATE].startIndex
+        );
       },
     },
   },
@@ -72,15 +71,20 @@ const gridOptions: GridOptions = {
   onGridReady,
 };
 
-function onGridReady(params: GridReadyEvent) {}
+function onGridReady(params: GridReadyEvent) {
+  console.log(params.columnApi.columnModel);
+}
 
 function rowSpan(params: RowSpanParams) {
   const TRANS_DATE = params.data.TRANS_DATE;
 
+  // console.log(data);
+  // console.log(countByDate[data]);
   if (
     TRANS_DATE === countByDate[TRANS_DATE].data &&
     params.node?.rowIndex === countByDate[TRANS_DATE].startIndex
   ) {
+    console.log(countByDate[TRANS_DATE].count);
     return countByDate[TRANS_DATE].count;
   }
 }
